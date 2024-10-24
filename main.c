@@ -166,14 +166,58 @@ int main(){
     salvarDados(lista);
     
     while(1){
-    	printf("1 - Cadastrar");
-    	printf("2 - Atendimento");
-    	printf("3 - Pesquisa");
-    	printf("4 - Desfazer ultima opercao");
-    	printf("5 - Carregar / Salvar");
-    	printf("6 - Sobre o programa");
-    	printf("Digite qual opcao deseja utilizar");
-  	}
+    	int opcao;
+	printf("1 - Opcoes de cadastro\n");
+	printf("2 - Atendimento\n");
+	printf("3 - Pesquisa\n");
+	printf("4 - Desfazer ultima opercao\n");
+	printf("5 - Carregar / Salvar\n");
+	printf("6 - Sobre o programa\n");
+	printf("Digite qual opcao deseja utilizar\n");
+	scanf("%d", &opcao);
+
+	if(opcao == 1){
+		int opcao_1;
+		printf("1 - Cadastrar novo paciente\n");
+		printf("2 - Consultar paciente cadastrado\n");
+		printf("3 - Mostrar lista de pacientes completa\n");
+		printf("4 - Atualizar dados de paciente\n");
+		printf("5 - Remover paciente\n");
+		printf("Digite qual opcao deseja utilizar\n");
+		scanf("%d", &opcao_1);
+		}
+	if(opcao == 2){
+		int opcao_2;
+		printf("1 - Enfileirar paciente na lista de atendimento\n");
+		printf("2 - Desenfileirar paciente na lista de atendimento\n");
+		printf("3 - Mostrar fila completa de atendimento\n");
+		scanf("%d", &opcao_2);
+		}
+	if(opcao == 3){
+		int opcao_3;
+		printf("1 - Mostrar registros ordenados por ano de registro\n");
+		printf("2 - Mostrar registros ordenados por mes de registro\n");
+		printf("3 - Mostrar registros ordenados por dia de registro\n");
+		printf("4 - Mostrar registros ordenados por idade do paciente\n");
+		scanf("%d", &opcao_3);
+		}
+	if(opcao == 4){
+		int opcao_4;
+		printf("Deseja desfazer a ultima operacao?\n1 - sim / 2 - nao\n");
+		}
+	if(opcao == 5){
+		int opcao_5;
+		printf("1 - Carregar arquivo com os dados dos pacientes\n");
+		printf("2 - Salvar arquivo com os dados dos pacientes\n");
+		scanf("%d", &opcao_5);
+		}
+	if(opcao == 6){
+		printf("Criadores: Giovanni Chahin Morassi\nLucas Roberto Boccia dos Santos\n");
+		printf("Ciclo: 4° semestre\n"):
+		printf("Curso: Ciencias da Computacao\n");
+		printf("Disciplina: Estrutura de dados\n");
+		printf("Data: \n");
+	}
     	
     Lista* lista2 = lerDados();
     mostrarListaCadastros(lista2,"123");
