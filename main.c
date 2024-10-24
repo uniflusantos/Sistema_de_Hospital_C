@@ -282,7 +282,7 @@ int main() {
     mostrarListaCadastros(lista2);
     
     ELista *atual = lista2->inicio;
-    while (atual != NULL) {
+    /*while (atual != NULL) {
         ELista *temp = atual;
         atual = atual->proximo;
         free(temp->Dados->nome);
@@ -290,9 +290,9 @@ int main() {
         free(temp->Dados->entrada);
         free(temp->Dados);
         free(temp);
-    }
+    }*/
 
-    while(1) {
+    /*while(1) {
         int opcao;
         printf("1 - Opcoes de cadastro\n");
         printf("2 - Atendimento\n");
@@ -401,7 +401,7 @@ int main() {
 	if(opcao == 7){
 		break;
 	}
-    }
+    }*/
     
     free(lista2);
     return 0;
