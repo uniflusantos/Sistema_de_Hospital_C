@@ -276,23 +276,68 @@ void mostrarFila(Fila *fila) {
     }
     printf("\n");
 }
+void opcoesCadastro(Lista* lista) {
+    int opcao_1;
+    printf("1 - Cadastrar novo paciente\n");
+    printf("2 - Consultar paciente cadastrado\n");
+    printf("3 - Mostrar lista de pacientes completa\n");
+    printf("4 - Atualizar dados de paciente\n");
+    printf("5 - Remover paciente\n");
+    printf("Digite qual opcao deseja utilizar\n");
+    scanf("%d", &opcao_1);
+
+    if (opcao_1 == 1) {
+        Registro *reg = iniciarRegistro(0, 0, 0);
+        printf("Digite o nome do paciente: ");
+        scanf("%s", reg->nome);
+        printf("Digite a idade do paciente: ");
+        scanf("%hd", &reg->idade);
+        printf("Digite o RG do paciente: ");
+        scanf("%s", reg->rg);
+        inserirLista(lista, reg);
+    } else if (opcao_1 == 2) {
+        int opcao_consultar;
+        printf("1 - Consultar por nome\n");
+        printf("2 - Consultar por RG\n");
+        printf("Digite por qual opcao deseja consultar\n");
+        scanf("%d", &opcao_consultar);
+        if (opcao_consultar == 1) {
+            char nome[STR_LIM];
+            printf("Digite o nome que deseja consultar: ");
+            scanf("%s", nome);
+            printarCadastro(procurarRegistroPeloNome(lista, nome));
+        } else if (opcao_consultar == 2) {
+            char rg[STR_LIM];
+            printf("Digite o RG que deseja consultar: ");
+            scanf("%s", rg);
+            printarCadastro(procurarRegistroPeloRG(lista, rg));
+        }
+    } else if (opcao_1 == 3) {
+        mostrarListaCadastros(lista);
+    } else if (opcao_1 == 5) {
+        int opcao_remover;
+        printf("1 - Remover por nome\n");
+        printf("2 - Remover por RG\n");
+        scanf("%d", &opcao_remover);
+        if (opcao_remover == 1) {
+            char nome_remover[STR_LIM];
+            printf("Digite o nome do paciente que deseja remover: ");
+            scanf("%s", nome_remover);
+            removerListaNome(lista, nome_remover);
+        } else if (opcao_remover == 2) {
+            char rg_remover[STR_LIM];
+            printf("Digite o RG do paciente que deseja remover: ");
+            scanf("%s", rg_remover);
+            removerListaRG(lista, rg_remover);
+        }
+    }
+}
 
 int main() {
     Lista* lista2 = lerDados();
     mostrarListaCadastros(lista2);
     
-    ELista *atual = lista2->inicio;
-    /*while (atual != NULL) {
-        ELista *temp = atual;
-        atual = atual->proximo;
-        free(temp->Dados->nome);
-        free(temp->Dados->rg);
-        free(temp->Dados->entrada);
-        free(temp->Dados);
-        free(temp);
-    }*/
-
-    /*while(1) {
+    while (1) {
         int opcao;
         printf("1 - Opcoes de cadastro\n");
         printf("2 - Atendimento\n");
@@ -300,109 +345,22 @@ int main() {
         printf("4 - Desfazer ultima operacao\n");
         printf("5 - Carregar / Salvar\n");
         printf("6 - Sobre o programa\n");
-	printf("7 - Sair do programa\n");
+        printf("7 - Sair do programa\n");
         printf("Digite qual opcao deseja utilizar\n");
         scanf("%d", &opcao);
 
-        if(opcao == 1) {
-            int opcao_1;
-            printf("1 - Cadastrar novo paciente\n");
-            printf("2 - Consultar paciente cadastrado\n");
-            printf("3 - Mostrar lista de pacientes completa\n");
-            printf("4 - Atualizar dados de paciente\n");
-            printf("5 - Remover paciente\n");
-            printf("Digite qual opcao deseja utilizar\n");
-            scanf("%d", &opcao_1);
-
-            if(opcao_1 == 1) {
-                Registro *reg = iniciarRegistro(0, 0, 0);
-                printf("Digite o nome do paciente: ");
-                scanf("%s", reg->nome);
-                printf("Digite a idade do paciente: ");
-                scanf("%hd", &reg->idade);
-                printf("Digite o RG do paciente: ");
-                scanf("%s", reg->rg);
-                inserirLista(lista2, reg);
-            } else if(opcao_1 == 2) {
-                int opcao_consultar;
-                printf("1 - Consultar por nome\n");
-                printf("2 - Consultar por RG\n");
-                printf("Digite por qual opcao deseja consultar\n");
-                scanf("%d", &opcao_consultar);
-                if(opcao_consultar == 1) {
-                    char nome[STR_LIM];
-                    printf("Digite o nome que deseja consultar: ");
-                    scanf("%s", nome);
-                    printarCadastro(procurarRegistroPeloNome(lista2, nome));
-                } else if(opcao_consultar == 2) {
-                    char rg[STR_LIM];
-                    printf("Digite o RG que deseja consultar: ");
-                    scanf("%s", rg);
-                    printarCadastro(procurarRegistroPeloRG(lista2, rg));
-                }
-            } else if(opcao_1 == 3) {
-                mostrarListaCadastros(lista2);
-            } else if(opcao_1 == 5) {
-                int opcao_remover;
-                printf("1 - Remover por nome\n");
-                printf("2 - Remover por RG\n");
-                scanf("%d", &opcao_remover);
-                if(opcao_remover == 1) {
-                    char nome_remover[STR_LIM];
-                    printf("Digite o nome do paciente que deseja remover: ");
-                    scanf("%s", nome_remover);
-                    removerListaNome(lista2, nome_remover);
-                } else if(opcao_remover == 2) {
-                    char rg_remover[STR_LIM];
-                    printf("Digite o RG do paciente que deseja remover: ");
-                    scanf("%s", rg_remover);
-                    removerListaRG(lista2, rg_remover);
-                }
-            }
+        if (opcao == 1) {
+            opcoesCadastro(lista2);
         }
-
-        if(opcao == 2) {
-            int opcao_2;
-            printf("1 - Enfileirar paciente na lista de atendimento\n");
-            printf("2 - Desenfileirar paciente na lista de atendimento\n");
-            printf("3 - Mostrar fila completa de atendimento\n");
-            scanf("%d", &opcao_2);
+        
+        // Aqui você pode adicionar as outras opções do menu principal.
+        
+        if (opcao == 7) {
+            break;
         }
-
-        if(opcao == 3) {
-            int opcao_3;
-            printf("1 - Mostrar registros ordenados por ano de registro\n");
-            printf("2 - Mostrar registros ordenados por mes de registro\n");
-            printf("3 - Mostrar registros ordenados por dia de registro\n");
-            printf("4 - Mostrar registros ordenados por idade do paciente\n");
-            scanf("%d", &opcao_3);
-        }
-
-        if(opcao == 4) {
-            int opcao_4;
-            printf("Deseja desfazer a ultima operacao?\n1 - sim / 2 - nao\n");
-        }
-
-        if(opcao == 5) {
-            int opcao_5;
-            printf("1 - Carregar arquivo com os dados dos pacientes\n");
-            printf("2 - Salvar arquivo com os dados dos pacientes\n");
-            scanf("%d", &opcao_5);
-        }
-
-        if(opcao == 6) {
-            printf("Criadores: Giovanni Chahin Morassi\nLucas Roberto Boccia dos Santos\n");
-            printf("Ciclo: 4° semestre\n");
-            printf("Curso: Ciencias da Computacao\n");
-            printf("Disciplina: Estrutura de dados\n");
-            printf("Data: \n");
-        }
-
-	if(opcao == 7){
-		break;
-	}
-    }*/
+    }
     
+    // Liberar memória
     free(lista2);
     return 0;
 }
