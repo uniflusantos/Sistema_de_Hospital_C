@@ -276,6 +276,7 @@ void mostrarFila(Fila *fila) {
     }
     printf("\n");
 }
+
 void opcoesCadastro(Lista* lista) {
     int opcao_1;
     printf("1 - Cadastrar novo paciente\n");
@@ -333,12 +334,49 @@ void opcoesCadastro(Lista* lista) {
     }
 }
 
+void opcao2(Fila *fila, Registro *reg){
+    int opcao_2;
+    printf("1 - Inserir paciente na fila de atendimento\n");
+    printf("2 - Remover paciente da fila de atendimento\n");
+    printf("3 - Mostrar fila de atendimento\n");
+    printf("Digite qual opcao deseja utilizar\n");
+    scanf("%d", &opcao_2);
+    if(opcao_2 == 1){
+        inserirFila(fila, reg);
+    }
+}
+
+void opcao5(Lista *lista){
+    int opcao_5;
+    printf("1 - Salvar dados em arquivo binario\n");
+    printf("2 - Ler dados do arquivo binario\n");
+    printf("Digite qual opcao deseja utilizar:\n");
+    scanf("%d", &opcao_5);
+    if(opcao_5 == 1){
+        salvarDados(lista);
+    }
+    else if(opcao_5 == 2){
+        lerDados();
+    }
+}
+
+void opcao6(){
+    printf("Programa de: \n");
+    printf("Lucas Roberto Boccia dos Santos (22.123.012-1)");
+    printf("Giovanni Chahin Morassi (22.123.025-3)");
+    printf("Ciclo: 4");
+    printf("Curso: Ciencias da Computacao");
+    printf("Disciplina: Estrutura de Dados");
+}
+
 int main() {
     Lista* lista2 = lerDados();
     mostrarListaCadastros(lista2);
     
     while (1) {
         int opcao;
+        printf("Givas Health Care System\n")
+        printf("Bem-vindo!\n\n");
         printf("1 - Opcoes de cadastro\n");
         printf("2 - Atendimento\n");
         printf("3 - Pesquisa\n");
@@ -346,14 +384,20 @@ int main() {
         printf("5 - Carregar / Salvar\n");
         printf("6 - Sobre o programa\n");
         printf("7 - Sair do programa\n");
-        printf("Digite qual opcao deseja utilizar\n");
+        printf("Digite qual opcao deseja utilizar: \n");
         scanf("%d", &opcao);
 
         if (opcao == 1) {
             opcoesCadastro(lista2);
         }
+
+        if (opcao == 5){
+            opcao5(lista2);
+        }
         
-        // Aqui você pode adicionar as outras opções do menu principal.
+        if (opcao == 6){
+            opcao6();
+        }
         
         if (opcao == 7) {
             break;
@@ -364,4 +408,3 @@ int main() {
     free(lista2);
     return 0;
 }
-
