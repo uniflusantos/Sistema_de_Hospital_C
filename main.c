@@ -213,11 +213,13 @@ Lista *lerDados() {
         return lista;
     }
     while (fread(&atual, sizeof(RegistroFull), 1, file) == 1) {
-        Registro *reg = iniciarRegistro(atual.entrada.dia, atual.entrada.mes, atual.entrada.ano);
-        strcpy(reg->nome, atual.nome);
-        strcpy(reg->rg, atual.rg);
-        inserirLista(lista, reg);
+    Registro *reg = iniciarRegistro(atual.entrada.dia, atual.entrada.mes, atual.entrada.ano);
+    strcpy(reg->nome, atual.nome);
+    strcpy(reg->rg, atual.rg);
+    reg->idade = atual.idade;  // Aqui está a correção
+    inserirLista(lista, reg);
     }
+
     fclose(file);
     return lista;    
 } 
@@ -334,17 +336,41 @@ void opcoesCadastro(Lista* lista) {
     }
 }
 
-void opcao2(Fila *fila, Registro *reg){
+void opcao2(Fila *fila, Lista *lista) {
     int opcao_2;
     printf("1 - Inserir paciente na fila de atendimento\n");
     printf("2 - Remover paciente da fila de atendimento\n");
     printf("3 - Mostrar fila de atendimento\n");
     printf("Digite qual opcao deseja utilizar\n");
     scanf("%d", &opcao_2);
-    if(opcao_2 == 1){
-        inserirFila(fila, reg);
+    
+    if (opcao_2 == 1) {
+        char rg[STR_LIM];
+        printf("Digite o RG do paciente que deseja enfileirar: \n");
+        scanf("%s", rg);
+        Registro *registro = procurarRegistroPeloRG(lista, rg);
+        if (registro) {
+            inserirFila(fila, registro);
+        } else {
+            printf("Paciente com RG %s não encontrado.\n", rg);
+        }
+    } else if (opcao_2 == 2) {
+        char rg[STR_LIM];
+        printf("Digite o RG do paciente que deseja desenfileirar: \n");
+        scanf("%s", rg);
+        Registro *registro = procurarRegistroPeloRG(lista, rg);
+        if(registro){
+            removerFila(fila);
+        }
+        else{
+            printf("Paciente com RG %s não encontrado.\n ", rg);
+        }
+        removerFila(fila);
+    } else if (opcao_2 == 3) {
+        mostrarFila(fila);
     }
 }
+
 
 void opcao5(Lista *lista){
     int opcao_5;
@@ -372,10 +398,10 @@ void opcao6(){
 int main() {
     Lista* lista2 = lerDados();
     mostrarListaCadastros(lista2);
-    
+    Fila *queue = iniciarFila();
     while (1) {
         int opcao;
-        printf("Givas Health Care System\n")
+        printf("Givas Health Care System\n");
         printf("Bem-vindo!\n\n");
         printf("1 - Opcoes de cadastro\n");
         printf("2 - Atendimento\n");
@@ -389,6 +415,10 @@ int main() {
 
         if (opcao == 1) {
             opcoesCadastro(lista2);
+        }
+
+        if (opcao == 2){
+            opcao2(queue, lista2);
         }
 
         if (opcao == 5){
