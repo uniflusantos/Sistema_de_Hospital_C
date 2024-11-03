@@ -85,20 +85,21 @@ CelulaStack* instanciar_celula(CelulaStack* proximo,int valor){
 Data* iniciarData(int aleatorio) {
     Data* data = malloc(sizeof(Data));
     if (aleatorio) {
-        data->ano = 2020 + rand() % 5;
-        data->dia = rand() % 30;
-        data->mes = rand() % 12;
-        return data;
+        data->ano = 2020 + rand() % 5; // Ano aleatório entre 2020 e 2024
+        data->dia = 1 + rand() % 30;    // Dia aleatório entre 1 e 30
+        data->mes = 1 + rand() % 12;    // Mês aleatório entre 1 e 12
+    } else {
+        data->ano = 0;
+        data->dia = 0;
+        data->mes = 0;
     }
-    data->ano = 0;
-    data->dia = 0;
-    data->mes = 0;
     return data;
 }
 
+
 Registro *iniciarRegistro(int dia, int mes, int ano) {
     Registro *reg = malloc(sizeof(Registro));
-    reg->entrada = iniciarData((dia && mes && ano) ? 0 : 1);
+    reg->entrada = iniciarData(1); // Passa 1 para gerar uma data aleatória
     if (dia && mes && ano) {
         reg->entrada->ano = ano;
         reg->entrada->mes = mes;
@@ -113,6 +114,7 @@ Registro *iniciarRegistro(int dia, int mes, int ano) {
 
     return reg;
 }
+
 
 Lista *iniciarLista() {
     Lista *lista = malloc(sizeof(Lista));
@@ -324,28 +326,29 @@ Fila *iniciarFila() {
 }
 
 void inserirFila(Fila *fila, Registro *reg) {
-    EFila *novo = iniciarEFilaReg(reg);
+    EFila *novo = iniciarEFilaReg(malloc(sizeof(Registro)));
+    *novo->Dados = *reg; // Cópia profunda dos dados do registro
     if (fila->quantidade == 0) {
         fila->head = novo;
     } else {
         fila->tail->proximo = novo;
     }
     fila->tail = novo;
-    fila->quantidade++;    
+    fila->quantidade++;
 }
+
 
 Registro removerFila(Fila *fila) {
     if (fila->quantidade == 0) return *iniciarRegistro(0, 0, 0);
     Registro valorRemocao = *fila->head->Dados;
     EFila *remover = fila->head;
     fila->head = fila->head->proximo;
-    free(remover->Dados->nome);
-    free(remover->Dados->rg);
-    free(remover->Dados);
+    free(remover->Dados); // Liberar apenas o registro que foi alocado na fila
     free(remover);
     fila->quantidade--;
     return valorRemocao;
 }
+
 
 void mostrarFila(Fila *fila) {
     EFila *inicio = fila->head;
@@ -583,14 +586,17 @@ void opcoesCadastro(Lista* lista) {
             char nome[STR_LIM];
             printf("Digite o nome que deseja consultar: ");
             scanf("%s", nome);
+            printf("Lista de pacientes: \n");
             printarCadastro(procurarRegistroPeloNome(lista, nome));
         } else if (opcao_consultar == 2) {
             char rg[STR_LIM];
             printf("Digite o RG que deseja consultar: ");
             scanf("%s", rg);
+            printf("Lista de pacientes: \n");
             printarCadastro(procurarRegistroPeloRG(lista, rg));
         }
     } else if (opcao_1 == 3) {
+        printf("Lista de pacientes cadastrados: \n");
         mostrarListaCadastros(lista);
     } else if (opcao_1 == 5) {
         int opcao_remover;
@@ -611,15 +617,65 @@ void opcoesCadastro(Lista* lista) {
     }
 }
 
-void opcao2(Fila *fila, Registro *reg){
+void opcao2(Fila *fila, Lista *lista) {
     int opcao_2;
     printf("1 - Inserir paciente na fila de atendimento\n");
     printf("2 - Remover paciente da fila de atendimento\n");
     printf("3 - Mostrar fila de atendimento\n");
     printf("Digite qual opcao deseja utilizar\n");
     scanf("%d", &opcao_2);
-    if(opcao_2 == 1){
-        inserirFila(fila, reg);
+    
+    if (opcao_2 == 1) {
+        char rg[STR_LIM];
+        printf("Digite o RG do paciente que deseja enfileirar: \n");
+        scanf("%s", rg);
+        Registro *registro = procurarRegistroPeloRG(lista, rg);
+        if (registro) {
+            inserirFila(fila, registro);
+        } else {
+            printf("Paciente com RG %s não encontrado.\n", rg);
+        }
+    } else if (opcao_2 == 2) {
+        removerFila(fila);
+    } else if (opcao_2 == 3) {
+        mostrarFila(fila);
+     } else if (opcao_2 == 3) {
+        printf("Fila de atendimento completa: \n");
+        mostrarFila(fila);
+    }
+}
+
+void opcao3(Lista *lista){
+    int opcao_3;
+    printf("1 - Mostrar registros ordenados por ano \n");
+    printf("2 - Mostrar registros ordenados por mes \n");
+    printf("3 - Mostrar registros ordenados por dia \n");
+    printf("4 - Mostrar registros ordenados por idade \n");
+    printf("Digite qual opcao deseja utilizar: \n");
+    scanf("%d", &opcao_3);
+    if(opcao_3 == 1){
+        printf("Registros ordenados por ano: \n");
+            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,3);
+        arvore = criarArvoreAPartirDeUmaLista(lista, 3);
+        printarArvoreEmOrdemCrescente(arvore->raiz);
+    }
+    if(opcao_3 == 2){
+        printf("Registros ordenados por mes: \n");
+            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,2);
+        arvore = criarArvoreAPartirDeUmaLista(lista, 2);
+        printarArvoreEmOrdemCrescente(arvore->raiz);
+    }
+    if(opcao_3 == 3){
+        printf("Registros ordenados por dia: \n");
+            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,1);
+        arvore = criarArvoreAPartirDeUmaLista(lista, 1);
+        printarArvoreEmOrdemCrescente(arvore->raiz);
+    }
+    if(opcao_3 == 4){
+        printf("Registros ordenados por idade: \n");
+        ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,0);
+        arvore = criarArvoreAPartirDeUmaLista(lista, 0);
+        printarArvoreEmOrdemCrescente(arvore->raiz);
     }
 }
 
@@ -647,8 +703,10 @@ void opcao6(){
 }
 
 int main() {
+    srand(time(NULL));
     Lista* lista = lerDados();
     mostrarListaCadastros(lista);
+    Fila *queue = iniciarFila();
     
     while (1) {
         int opcao;
@@ -668,6 +726,14 @@ int main() {
             opcoesCadastro(lista);
         }
 
+        if (opcao == 2){
+            opcao2(queue, lista);
+        }
+
+        if (opcao == 3){
+            opcao3(lista);
+        }
+
         if (opcao == 5){
             opcao5(lista);
         }
@@ -678,6 +744,7 @@ int main() {
         
         if (opcao == 7) {
             salvarDados(lista);
+            printf("Saindo do programa...\n");
             break;
         }
     }
