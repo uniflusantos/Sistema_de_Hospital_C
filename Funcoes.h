@@ -4,6 +4,7 @@
 
 #define STR_LIM 50
 
+void limpa_buffer();
 void opcoesCadastro(Lista* lista);
 void opcao2(Fila *fila, Lista *lista);
 void opcao3(Lista *lista);
