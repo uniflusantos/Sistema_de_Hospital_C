@@ -82,6 +82,7 @@ void opcoesCadastro(Lista* lista) {
             printf("1 - Dia\n");
             printf("2 - Mes\n");
             printf("3 - Ano\n");
+            printf("4 - Alterar a dadta inteira\n");
             scanf("%d", &opcao_data);
 
             if(opcao_data == 1){
@@ -110,6 +111,23 @@ void opcoesCadastro(Lista* lista) {
                 printf("Digite o novo ano da data: \n");
                 scanf("%d", &novo_ano);
                 editarDataMes(lista, rg_edicao, novo_ano);
+            }
+            else if(opcao_data == 4){
+                char rg_edicao[STR_LIM];
+                printf("Digite o rg do paciente que deseja editar a dia: ");
+                scanf("%s", &rg_edicao);
+                int novo_dia;
+                int novo_mes;
+                int novo_ano;
+                printf("Digite o novo dia: \n");
+                scanf("%d", &novo_dia);
+                printf("Digite o novo mes: \n");
+                scanf("%d", &novo_mes);
+                printf("Digite o novo ano: \n");
+                scanf("%d", &novo_ano);
+                editarDataDia(lista, rg_edicao, novo_dia);
+                editarDataMes(lista, rg_edicao, novo_mes);
+                editarDataAno(lista, rg_edicao, novo_ano);
             }
         }
     }
