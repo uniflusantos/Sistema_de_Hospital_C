@@ -56,6 +56,7 @@ void opcoesCadastro(Lista* lista) {
         printf("Digite qual informacao quer editar do paciente\n");
         printf("1 - Nome\n");
         printf("2 - Idade\n");
+        printf("3 - Data\n");
         scanf("%d", &opcao_editar);
         if(opcao_editar == 1){
             char rg_edicao[STR_LIM];
@@ -74,6 +75,42 @@ void opcoesCadastro(Lista* lista) {
             printf("Digite a nova idade do paciente\n");
             scanf("%d", &nova_idade);
             editarIdadePeloRG(lista, rg_edicao, nova_idade);
+        }
+        else if(opcao_editar == 3){
+            int opcao_data;
+            printf("Digite qual dado da data deseja alterar: \n");
+            printf("1 - Dia\n");
+            printf("2 - Mes\n");
+            printf("3 - Ano\n");
+            scanf("%d", &opcao_data);
+
+            if(opcao_data == 1){
+                char rg_edicao[STR_LIM];
+                printf("Digite o rg do paciente que deseja editar a dia: ");
+                scanf("%s", &rg_edicao);
+                int novo_dia;
+                printf("Digite o novo dia da data: \n");
+                scanf("%d", &novo_dia);
+                editarDataDia(lista, rg_edicao, novo_dia);
+            }
+            else if(opcao_data == 2){
+                char rg_edicao[STR_LIM];
+                printf("Digite o rg do paciente que deseja editar a dia: ");
+                scanf("%s", &rg_edicao);
+                int novo_mes;
+                printf("Digite o novo mes da data: \n");
+                scanf("%d", &novo_mes);
+                editarDataMes(lista, rg_edicao, novo_mes);
+            }
+            else if(opcao_data == 3){
+                char rg_edicao[STR_LIM];
+                printf("Digite o rg do paciente que deseja editar a dia: ");
+                scanf("%s", &rg_edicao);
+                int novo_ano;
+                printf("Digite o novo ano da data: \n");
+                scanf("%d", &novo_ano);
+                editarDataMes(lista, rg_edicao, novo_ano);
+            }
         }
     }
 
