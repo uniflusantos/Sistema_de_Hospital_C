@@ -48,7 +48,36 @@ void opcoesCadastro(Lista* lista) {
     } else if (opcao_1 == 3) {
         printf("Lista de pacientes cadastrados: \n");
         mostrarListaCadastros(lista);
-    } else if (opcao_1 == 5) {
+
+    } 
+    
+    else if (opcao_1 == 4){
+        int opcao_editar;
+        printf("Digite qual informacao quer editar do paciente\n");
+        printf("1 - Nome\n");
+        printf("2 - Idade\n");
+        scanf("%d", &opcao_editar);
+        if(opcao_editar == 1){
+            char rg_edicao[STR_LIM];
+            printf("Digite o rg do paciente que deseja editar o nome: \n");
+            scanf("%s", rg_edicao);
+            char novo_nome[STR_LIM];
+            printf("Digite o novo nome do paciente\n");
+            scanf("%s", &novo_nome);
+            editarNomePeloRG(lista, rg_edicao, novo_nome);
+        }
+        else if(opcao_editar == 2){
+            char rg_edicao[STR_LIM];
+            printf("Digite o rg do paciente que deseja a editar a idade: ");
+            scanf("%s", rg_edicao);
+            int nova_idade;
+            printf("Digite a nova idade do paciente\n");
+            scanf("%d", &nova_idade);
+            editarIdadePeloRG(lista, rg_edicao, nova_idade);
+        }
+    }
+
+    else if (opcao_1 == 5) {
         int opcao_remover;
         printf("1 - Remover por nome\n");
         printf("2 - Remover por RG\n");
