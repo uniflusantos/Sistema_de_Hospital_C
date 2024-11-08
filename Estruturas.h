@@ -111,7 +111,11 @@ ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
 FilaComDesfazimento* iniciarFilaComDesfazimento();
 void inserirFilaComDesfazimento(FilaComDesfazimento *filaComDesfazimento, Registro *registro);
 void desfazerUltimaOperacao(FilaComDesfazimento *filaComDesfazimento);
-int editarIdadePeloRG(Lista *lista, char *rg, int novaIdade);
-int editarNomePeloRG(Lista *lista, char *rg, const char *novoNome);
+void editarIdadePeloRG(Lista *lista, char *rg, int novaIdade);
+void editarNomePeloRG(Lista *lista, char *rg, const char *novoNome);
+void editarDataDia(Lista *lista, char *rg, int novoDia);
+void editarDataMes(Lista *lista, char *rg, int novoMes);
+void editarDataAno(Lista *lista, char *rg, int novoAno);
+
 
 #endif 
