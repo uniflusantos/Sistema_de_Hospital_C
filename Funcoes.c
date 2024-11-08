@@ -6,6 +6,10 @@
 #include "Funcoes.h"
 #define STR_LIM 50
 
+void limpa_buffer(){
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}
 
 void opcoesCadastro(Lista* lista) {
     int opcao_1;
@@ -16,34 +20,41 @@ void opcoesCadastro(Lista* lista) {
     printf("5 - Remover paciente\n");
     printf("Digite qual opcao deseja utilizar\n");
     scanf("%d", &opcao_1);
+    limpa_buffer();
 
     if (opcao_1 == 1) {
         Registro *reg = iniciarRegistro(0, 0, 0);
         printf("Digite o nome do paciente: ");
         scanf("%s", reg->nome);
+        limpa_buffer();
         printf("Digite a idade do paciente: ");
         scanf("%hd", &reg->idade);
+        limpa_buffer();
         printf("Digite o RG do paciente: ");
         scanf("%s", reg->rg);
         inserirLista(lista, reg);
+        limpa_buffer();
     } else if (opcao_1 == 2) {
         int opcao_consultar;
         printf("1 - Consultar por nome\n");
         printf("2 - Consultar por RG\n");
         printf("Digite por qual opcao deseja consultar\n");
         scanf("%d", &opcao_consultar);
+        limpa_buffer();
         if (opcao_consultar == 1) {
             char nome[STR_LIM];
             printf("Digite o nome que deseja consultar: ");
             scanf("%s", nome);
             printf("Lista de pacientes: \n");
             printarCadastro(procurarRegistroPeloNome(lista, nome));
+            limpa_buffer();
         } else if (opcao_consultar == 2) {
             char rg[STR_LIM];
             printf("Digite o RG que deseja consultar: ");
             scanf("%s", rg);
             printf("Lista de pacientes: \n");
             printarCadastro(procurarRegistroPeloRG(lista, rg));
+            limpa_buffer();
         }
     } else if (opcao_1 == 3) {
         printf("Lista de pacientes cadastrados: \n");
@@ -58,23 +69,28 @@ void opcoesCadastro(Lista* lista) {
         printf("2 - Idade\n");
         printf("3 - Data\n");
         scanf("%d", &opcao_editar);
+        limpa_buffer();
         if(opcao_editar == 1){
             char rg_edicao[STR_LIM];
             printf("Digite o rg do paciente que deseja editar o nome: \n");
             scanf("%s", rg_edicao);
+            limpa_buffer();
             char novo_nome[STR_LIM];
             printf("Digite o novo nome do paciente\n");
             scanf("%s", &novo_nome);
             editarNomePeloRG(lista, rg_edicao, novo_nome);
+            limpa_buffer();
         }
         else if(opcao_editar == 2){
             char rg_edicao[STR_LIM];
             printf("Digite o rg do paciente que deseja a editar a idade: ");
             scanf("%s", rg_edicao);
+            limpa_buffer();
             int nova_idade;
             printf("Digite a nova idade do paciente\n");
             scanf("%d", &nova_idade);
             editarIdadePeloRG(lista, rg_edicao, nova_idade);
+            limpa_buffer();
         }
         else if(opcao_editar == 3){
             int opcao_data;
@@ -84,50 +100,61 @@ void opcoesCadastro(Lista* lista) {
             printf("3 - Ano\n");
             printf("4 - Alterar a dadta inteira\n");
             scanf("%d", &opcao_data);
+            limpa_buffer();
 
             if(opcao_data == 1){
                 char rg_edicao[STR_LIM];
                 printf("Digite o rg do paciente que deseja editar a dia: ");
                 scanf("%s", &rg_edicao);
+                limpa_buffer();
                 int novo_dia;
                 printf("Digite o novo dia da data: \n");
                 scanf("%d", &novo_dia);
                 editarDataDia(lista, rg_edicao, novo_dia);
+                limpa_buffer();
             }
             else if(opcao_data == 2){
                 char rg_edicao[STR_LIM];
                 printf("Digite o rg do paciente que deseja editar a dia: ");
                 scanf("%s", &rg_edicao);
+                limpa_buffer();
                 int novo_mes;
                 printf("Digite o novo mes da data: \n");
                 scanf("%d", &novo_mes);
                 editarDataMes(lista, rg_edicao, novo_mes);
+                limpa_buffer();
             }
             else if(opcao_data == 3){
                 char rg_edicao[STR_LIM];
                 printf("Digite o rg do paciente que deseja editar a dia: ");
                 scanf("%s", &rg_edicao);
+                limpa_buffer();
                 int novo_ano;
                 printf("Digite o novo ano da data: \n");
                 scanf("%d", &novo_ano);
                 editarDataMes(lista, rg_edicao, novo_ano);
+                limpa_buffer();
             }
             else if(opcao_data == 4){
                 char rg_edicao[STR_LIM];
                 printf("Digite o rg do paciente que deseja editar a dia: ");
                 scanf("%s", &rg_edicao);
+                limpa_buffer();
                 int novo_dia;
                 int novo_mes;
                 int novo_ano;
                 printf("Digite o novo dia: \n");
                 scanf("%d", &novo_dia);
+                limpa_buffer();
                 printf("Digite o novo mes: \n");
                 scanf("%d", &novo_mes);
+                limpa_buffer();
                 printf("Digite o novo ano: \n");
                 scanf("%d", &novo_ano);
                 editarDataDia(lista, rg_edicao, novo_dia);
                 editarDataMes(lista, rg_edicao, novo_mes);
                 editarDataAno(lista, rg_edicao, novo_ano);
+                limpa_buffer();
             }
         }
     }
@@ -137,16 +164,19 @@ void opcoesCadastro(Lista* lista) {
         printf("1 - Remover por nome\n");
         printf("2 - Remover por RG\n");
         scanf("%d", &opcao_remover);
+        limpa_buffer();
         if (opcao_remover == 1) {
             char nome_remover[STR_LIM];
             printf("Digite o nome do paciente que deseja remover: ");
             scanf("%s", nome_remover);
             removerListaNome(lista, nome_remover);
+            limpa_buffer();
         } else if (opcao_remover == 2) {
             char rg_remover[STR_LIM];
             printf("Digite o RG do paciente que deseja remover: ");
             scanf("%s", rg_remover);
             removerListaRG(lista, rg_remover);
+            limpa_buffer();
         }
     }
 }
@@ -164,6 +194,7 @@ void opcao2(Fila *fila, Lista *lista) {
         printf("Digite o RG do paciente que deseja enfileirar: \n");
         scanf("%s", rg);
         Registro *registro = procurarRegistroPeloRG(lista, rg);
+        limpa_buffer();
         if (registro) {
             inserirFila(fila, registro);
         } else {
@@ -187,6 +218,7 @@ void opcao3(Lista *lista){
     printf("4 - Mostrar registros ordenados por idade \n");
     printf("Digite qual opcao deseja utilizar: \n");
     scanf("%d", &opcao_3);
+    limpa_buffer();
     if(opcao_3 == 1){
         printf("Registros ordenados por ano: \n");
             ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,3);
@@ -219,6 +251,7 @@ void opcao5(Lista *lista){
     printf("2 - Ler dados do arquivo binario\n");
     printf("Digite qual opcao deseja utilizar:\n");
     scanf("%d", &opcao_5);
+    limpa_buffer();
     if(opcao_5 == 1){
         salvarDados(lista);
     }
