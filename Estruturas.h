@@ -65,6 +65,11 @@ typedef struct ArvoreBinaria{
     int (*remover)(struct ArvoreBinaria* ,VerticeArvore*);
 } ArvoreBinaria;
 
+typedef struct {
+    Fila *fila;         // Fila de atendimento
+    StackInt *histórico; // Stack para armazenar os elementos removidos
+} FilaComDesfazimento;
+
 
 
 ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
@@ -103,6 +108,10 @@ void inserirArvoreDia(ArvoreBinaria* arvore, Registro* valor);
 int removerVerticeArvoreBinaria(ArvoreBinaria* arvore, VerticeArvore* vertice);
 ArvoreBinaria *iniciarArvoreBinaria();
 ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
-
+FilaComDesfazimento* iniciarFilaComDesfazimento();
+void inserirFilaComDesfazimento(FilaComDesfazimento *filaComDesfazimento, Registro *registro);
+void desfazerUltimaOperacao(FilaComDesfazimento *filaComDesfazimento);
+int editarIdadePeloRG(Lista *lista, char *rg, int novaIdade);
+int editarNomePeloRG(Lista *lista, char *rg, const char *novoNome);
 
 #endif 
