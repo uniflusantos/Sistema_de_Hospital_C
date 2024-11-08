@@ -192,35 +192,50 @@ void mostrarListaCadastros(Lista* lista) {
     printf("\n");
 }
 
-int editarNomePeloRG(Lista *lista, char *rg, const char *novoNome) {
-    // Encontra o paciente pelo RG
+void editarNomePeloRG(Lista *lista, char *rg, const char *novoNome) {
     Registro *paciente = procurarRegistroPeloRG(lista, rg);
     
     if (paciente != NULL) {
-        // Atualiza o nome
         strcpy(paciente->nome, novoNome);
-        printf("Nome do paciente com RG %s atualizado para %s!\n", rg, novoNome);
-        return 1;  // Retorna 1 se a edição foi bem-sucedida
+        printf("Nome atualizado\n");
     }
-    
-    printf("Paciente com o RG %s não encontrado!\n", rg);
-    return 0;  // Retorna 0 se o paciente não for encontrado
 }
 
 
-int editarIdadePeloRG(Lista *lista, char *rg, int novaIdade) {
-    // Encontra o paciente pelo RG
+void editarIdadePeloRG(Lista *lista, char *rg, int novaIdade) {
     Registro *paciente = procurarRegistroPeloRG(lista, rg);
 
     if (paciente != NULL) {
-        // Atualiza a idade
         paciente->idade = novaIdade;
-        printf("Idade do paciente com RG %s atualizada para %d anos!\n", rg, novaIdade);
-        return 1;  // Retorna 1 se a edição foi bem-sucedida
+        printf("Idade atualizada\n");
     }
+}
 
-    printf("Paciente com o RG %s não encontrado!\n", rg);
-    return 0;  // Retorna 0 se o paciente não for encontrado
+void editarDataDia(Lista *lista, char *rg, int novoDia){
+    Registro *paciente = procurarRegistroPeloRG(lista, rg);
+
+    if(paciente != NULL){
+        paciente->entrada->dia = novoDia;
+        printf("Dia atualizado\n");
+    }
+}
+
+void editarDataMes(Lista *lista, char *rg, int novoMes){
+    Registro *paciente = procurarRegistroPeloRG(lista, rg);
+
+    if(paciente != NULL){
+        paciente->entrada->mes = novoMes;
+        printf("Mes atualizado\n");
+    }
+}
+
+void editarDataAno(Lista *lista, char *rg, int novoAno){
+    Registro *paciente = procurarRegistroPeloRG(lista, rg);
+
+    if(paciente != NULL){
+        paciente->entrada->ano = novoAno;
+        printf("Ano atualizado\n");
+    }
 }
 
 void limparArquivoBinario(const char *caminho) {
