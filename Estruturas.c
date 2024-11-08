@@ -192,6 +192,37 @@ void mostrarListaCadastros(Lista* lista) {
     printf("\n");
 }
 
+int editarNomePeloRG(Lista *lista, char *rg, const char *novoNome) {
+    // Encontra o paciente pelo RG
+    Registro *paciente = procurarRegistroPeloRG(lista, rg);
+    
+    if (paciente != NULL) {
+        // Atualiza o nome
+        strcpy(paciente->nome, novoNome);
+        printf("Nome do paciente com RG %s atualizado para %s!\n", rg, novoNome);
+        return 1;  // Retorna 1 se a edição foi bem-sucedida
+    }
+    
+    printf("Paciente com o RG %s não encontrado!\n", rg);
+    return 0;  // Retorna 0 se o paciente não for encontrado
+}
+
+
+int editarIdadePeloRG(Lista *lista, char *rg, int novaIdade) {
+    // Encontra o paciente pelo RG
+    Registro *paciente = procurarRegistroPeloRG(lista, rg);
+
+    if (paciente != NULL) {
+        // Atualiza a idade
+        paciente->idade = novaIdade;
+        printf("Idade do paciente com RG %s atualizada para %d anos!\n", rg, novaIdade);
+        return 1;  // Retorna 1 se a edição foi bem-sucedida
+    }
+
+    printf("Paciente com o RG %s não encontrado!\n", rg);
+    return 0;  // Retorna 0 se o paciente não for encontrado
+}
+
 void limparArquivoBinario(const char *caminho) {
     FILE *file = fopen(caminho, "wb");
     if (file == NULL) {
@@ -489,4 +520,29 @@ ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada){
         primeiro = primeiro->proximo;
     }
     return arvore;
+}
+
+FilaComDesfazimento* iniciarFilaComDesfazimento() {
+    FilaComDesfazimento *filaComDesfazimento = malloc(sizeof(FilaComDesfazimento));
+    filaComDesfazimento->fila = iniciarFila();              // Inicializa a fila
+    filaComDesfazimento->histórico = iniciarStack();        // Inicializa a stack para o histórico
+    return filaComDesfazimento;
+}
+
+void inserirFilaComDesfazimento(FilaComDesfazimento *filaComDesfazimento, Registro *registro) {
+    inserirFila(filaComDesfazimento->fila, registro); // Inserir na fila de atendimento
+    push_stack(filaComDesfazimento->histórico, 1);    // Registrar a operação na stack (1 = inserção)
+}
+
+void desfazerUltimaOperacao(FilaComDesfazimento *filaComDesfazimento) {
+    // Verifica se há algo para desfazer
+    if (filaComDesfazimento->histórico->qtde > 0) {
+        int ultimoRegistro = pop_stack(filaComDesfazimento->histórico); // Pega a última ação registrada
+        if (ultimoRegistro == 1) { // 1 significa que a última ação foi uma inserção
+            Registro pacienteRemovido = removerFila(filaComDesfazimento->fila); // Remove o paciente da fila
+            printf("Operação desfeita: Paciente %s removido da fila.\n", pacienteRemovido.nome);
+        }
+    } else {
+        printf("Nenhuma operação para desfazer.\n");
+    }
 }
