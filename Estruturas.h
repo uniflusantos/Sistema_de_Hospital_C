@@ -67,7 +67,7 @@ typedef struct ArvoreBinaria{
 
 typedef struct {
     Fila *fila;         // Fila de atendimento
-    StackInt *histórico; // Stack para armazenar os elementos removidos
+    StackInt *historico; // Stack para armazenar os elementos removidos
 } FilaComDesfazimento;
 
 

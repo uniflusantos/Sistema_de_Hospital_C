@@ -540,19 +540,19 @@ ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada){
 FilaComDesfazimento* iniciarFilaComDesfazimento() {
     FilaComDesfazimento *filaComDesfazimento = malloc(sizeof(FilaComDesfazimento));
     filaComDesfazimento->fila = iniciarFila();              // Inicializa a fila
-    filaComDesfazimento->histórico = iniciarStack();        // Inicializa a stack para o histórico
+    filaComDesfazimento->historico = iniciarStack();        // Inicializa a stack para o historico
     return filaComDesfazimento;
 }
 
 void inserirFilaComDesfazimento(FilaComDesfazimento *filaComDesfazimento, Registro *registro) {
     inserirFila(filaComDesfazimento->fila, registro); // Inserir na fila de atendimento
-    push_stack(filaComDesfazimento->histórico, 1);    // Registrar a operação na stack (1 = inserção)
+    push_stack(filaComDesfazimento->historico, 1);    // Registrar a operação na stack (1 = inserção)
 }
 
 void desfazerUltimaOperacao(FilaComDesfazimento *filaComDesfazimento) {
     // Verifica se há algo para desfazer
-    if (filaComDesfazimento->histórico->qtde > 0) {
-        int ultimoRegistro = pop_stack(filaComDesfazimento->histórico); // Pega a última ação registrada
+    if (filaComDesfazimento->historico->qtde > 0) {
+        int ultimoRegistro = pop_stack(filaComDesfazimento->historico); // Pega a última ação registrada
         if (ultimoRegistro == 1) { // 1 significa que a última ação foi uma inserção
             Registro pacienteRemovido = removerFila(filaComDesfazimento->fila); // Remove o paciente da fila
             printf("Operação desfeita: Paciente %s removido da fila.\n", pacienteRemovido.nome);
