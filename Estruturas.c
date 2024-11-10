@@ -14,8 +14,8 @@ StackInt * iniciarStack(){
     return pilha;
 }
 
-CelulaStack* instanciar_celula(CelulaStack* proximo,int valor){
-    CelulaStack * cell = malloc(sizeof(CelulaStack));
+CelulaStackInt* instanciar_celula(CelulaStackInt* proximo,int valor){
+    CelulaStackInt * cell = malloc(sizeof(CelulaStackInt));
     cell->valor= valor;
     cell->proximo = proximo;
     return cell;
@@ -86,7 +86,7 @@ void push_stack(StackInt * pilha, int valor){
 
 int pop_stack(StackInt * pilha){
     if (pilha->qtde==0)return -1;
-    CelulaStack* deletando = pilha->topo;
+    CelulaStackInt* deletando = pilha->topo;
     int valor = deletando->valor;
     pilha->topo=pilha->topo->proximo;
     free(deletando);
@@ -95,7 +95,7 @@ int pop_stack(StackInt * pilha){
 }
 
 void show_stack(StackInt* pilha){
-        CelulaStack *topo = pilha->topo;
+        CelulaStackInt *topo = pilha->topo;
     while(topo!=NULL){
         printf("%d ",topo->valor);
         topo = topo->proximo;

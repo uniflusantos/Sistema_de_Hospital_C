@@ -41,13 +41,13 @@ typedef struct {
     int quantidade;
 } Fila;
 
-typedef struct CelulaStack{
-    struct CelulaStack* proximo;
+typedef struct CelulaStackInt{
+    struct CelulaStackInt* proximo;
     int valor;
-}CelulaStack;
+}CelulaStackInt;
 
 typedef struct{
-    CelulaStack *topo;
+    CelulaStackInt *topo;
     int qtde;
 }StackInt;
 
@@ -74,7 +74,7 @@ typedef struct {
 
 ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
 StackInt* iniciarStack();
-CelulaStack* instanciar_celula(CelulaStack* proximo,int valor);
+CelulaStackInt* instanciar_celula(CelulaStackInt* proximo,int valor);
 Data* iniciarData(int aleatorio);
 Registro *iniciarRegistro(int dia, int mes, int ano);
 Lista *iniciarLista();
