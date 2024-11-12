@@ -12,7 +12,7 @@ int main() {
     Lista* lista = lerDados();
     // mostrarListaCadastros(lista);
     Fila *queue = iniciarFila();
-    // StackInt *pilha = iniciarStack();
+     StackInt *pilha = iniciarStackInt();
     StackRegistro * stack = iniciarStackRegistro();
     while (1) {
         int opcao;
@@ -33,7 +33,7 @@ int main() {
         }
 
         if (opcao == 2){
-            opcao2(queue, lista);
+            opcao2(queue, lista, stack, pilha);
         }
 
         if (opcao == 3){
@@ -41,7 +41,7 @@ int main() {
         }
 
         if (opcao == 4){
-            opcao4();
+            opcao4(queue, stack, pilha);
         }
 
         if (opcao == 5){
