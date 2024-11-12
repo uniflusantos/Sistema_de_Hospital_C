@@ -65,10 +65,7 @@ typedef struct ArvoreBinaria{
     int (*remover)(struct ArvoreBinaria* ,VerticeArvore*);
 } ArvoreBinaria;
 
-typedef struct {
-    Fila *fila;         // Fila de atendimento
-    StackInt *historico; // Stack para armazenar os elementos removidos
-} FilaComDesfazimento;
+
 
 
 
