@@ -10,10 +10,10 @@
 int main() {
     srand(time(NULL));
     Lista* lista = lerDados();
-    mostrarListaCadastros(lista);
+    // mostrarListaCadastros(lista);
     Fila *queue = iniciarFila();
     // StackInt *pilha = iniciarStack();
-    
+    StackRegistro * stack = iniciarStackRegistro();
     while (1) {
         int opcao;
         printf("\nGivas Health Care System\n");

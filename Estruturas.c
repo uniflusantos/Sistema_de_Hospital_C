@@ -521,14 +521,14 @@ Registro* pop_StackRegistro(StackRegistro * pilha){
     pilha->qtde--;
     return valor;
 }
-// void show_StackRegistro(StackRegistro* pilha){
-//     CelulaStackRegistro *topo = pilha->topo;
-//     while(topo!=NULL){
-//         printarCadastro(topo->valor);
-//         topo = topo->proximo;
-//     }
-//     printf("\n");
-// }
+void show_StackRegistro(StackRegistro* pilha){
+    CelulaStackRegistro *topo = pilha->topo;
+    while(topo!=NULL){
+        printarCadastro(topo->valor);
+        topo = topo->proximo;
+    }
+    printf("\n");
+}
 
 
 CelulaStackRegistro* instanciar_celula_registro(CelulaStackRegistro* proximo,Registro* valor){
