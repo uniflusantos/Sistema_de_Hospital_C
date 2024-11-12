@@ -82,15 +82,22 @@ typedef struct ArvoreBinaria{
 
 ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
 StackInt* iniciarStack();
+void push_stack(StackInt * pilha, int valor);
+int pop_stack(StackInt * pilha);
+void show_stack(StackInt* pilha);
 CelulaStackInt* instanciar_celula(CelulaStackInt* proximo,int valor);
+
+StackRegistro* iniciarStackRegistro();
+void push_StackRegistro(StackRegistro * pilha, int valor);
+int pop_StackRegistro(StackRegistro * pilha);
+void show_StackRegistro(StackRegistro* pilha);
+CelulaStackRegistro* instanciar_celula_registro(CelulaStackRegistro* proximo,int valor);
+
 Data* iniciarData(int aleatorio);
 Registro *iniciarRegistro(int dia, int mes, int ano);
 Lista *iniciarLista();
 ELista *iniciarELista(Registro *registro);
 VerticeArvore *iniciarVerticeArvoreBinaria(Registro* registrado);
-void push_stack(StackInt * pilha, int valor);
-int pop_stack(StackInt * pilha);
-void show_stack(StackInt* pilha);
 void inserirLista(Lista *lista, Registro *valor);
 Registro *removerListaRG(Lista *lista, char* rg);
 Registro *removerListaNome(Lista *lista, char* nome);
