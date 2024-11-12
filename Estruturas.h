@@ -51,6 +51,17 @@ typedef struct{
     int qtde;
 }StackInt;
 
+typedef struct CelulaStackRegistro{
+    struct CelulaStackRegistro* proximo;
+    int valor;
+}CelulaStackRegistro;
+
+typedef struct{
+    CelulaStackRegistro *topo;
+    int qtde;
+}StackRegistro;
+
+
 typedef struct VerticeArvore{
 	Registro *valor;
 	struct VerticeArvore* esq;
