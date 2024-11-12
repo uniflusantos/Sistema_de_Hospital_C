@@ -245,6 +245,17 @@ void opcao3(Lista *lista){
     }
 }
 
+
+
+void opcao4(){
+    printf("Desfazendo a ultima operacao...\n");
+    
+}
+
+
+
+
+
 void opcao5(Lista *lista){
     int opcao_5;
     printf("1 - Salvar dados em arquivo binario\n");

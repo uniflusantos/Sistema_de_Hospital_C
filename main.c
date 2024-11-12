@@ -40,6 +40,10 @@ int main() {
             opcao3(lista);
         }
 
+        if (opcao == 4){
+            opcao4();
+        }
+
         if (opcao == 5){
             opcao5(lista);
         }

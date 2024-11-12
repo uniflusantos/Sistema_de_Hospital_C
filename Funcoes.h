@@ -8,6 +8,7 @@ void limpa_buffer();
 void opcoesCadastro(Lista* lista);
 void opcao2(Fila *fila, Lista *lista);
 void opcao3(Lista *lista);
+void opcao4();
 void opcao5(Lista *lista);
 void opcao6();
 
