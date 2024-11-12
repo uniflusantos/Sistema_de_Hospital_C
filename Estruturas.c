@@ -7,19 +7,7 @@
 #define STR_LIM 50
 
 
-StackInt * iniciarStack(){
-    StackInt* pilha = malloc(sizeof(StackInt));
-    pilha->qtde=0;
-    pilha->topo= NULL;
-    return pilha;
-}
 
-CelulaStackInt* instanciar_celula(CelulaStackInt* proximo,int valor){
-    CelulaStackInt * cell = malloc(sizeof(CelulaStackInt));
-    cell->valor= valor;
-    cell->proximo = proximo;
-    return cell;
-}
 
 Data* iniciarData(int aleatorio) {
     Data* data = malloc(sizeof(Data));
@@ -77,30 +65,6 @@ VerticeArvore *iniciarVerticeArvoreBinaria(Registro* registrado){
 	novo->valor = registrado;
 	
 	return novo;
-}
-
-void push_stack(StackInt * pilha, int valor){
-    pilha->topo = instanciar_celula(pilha->topo,valor);
-    pilha->qtde++;
-}
-
-int pop_stack(StackInt * pilha){
-    if (pilha->qtde==0)return -1;
-    CelulaStackInt* deletando = pilha->topo;
-    int valor = deletando->valor;
-    pilha->topo=pilha->topo->proximo;
-    free(deletando);
-    pilha->qtde--;
-    return valor;
-}
-
-void show_stack(StackInt* pilha){
-        CelulaStackInt *topo = pilha->topo;
-    while(topo!=NULL){
-        printf("%d ",topo->valor);
-        topo = topo->proximo;
-    }
-    printf("\n");
 }
 
 void inserirLista(Lista *lista, Registro *valor) {
@@ -503,7 +467,7 @@ int removerVerticeArvoreBinaria(ArvoreBinaria* arvore, VerticeArvore* vertice) {
         while (sucessor->dir != NULL) {
             sucessor = sucessor->dir;
         }
-
+    
         // Copia o valor do sucessor para o nó a ser removido
         vertice->valor = sucessor->valor;
 
@@ -536,3 +500,80 @@ ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada){
     }
     return arvore;
 }
+
+
+StackRegistro* iniciarStackRegistro(){
+    StackRegistro* pilha = malloc(sizeof(StackRegistro));
+    pilha->qtde=0;
+    pilha->topo= NULL;
+    return pilha;
+}
+void push_StackRegistro(StackRegistro * pilha, Registro* valor){
+    pilha->topo = instanciar_celula_registro(pilha->topo,valor);
+    pilha->qtde++;
+}
+Registro* pop_StackRegistro(StackRegistro * pilha){
+    if (pilha->qtde==0)return NULL;
+    CelulaStackRegistro* deletando = pilha->topo;
+    Registro* valor = deletando->valor;
+    pilha->topo=pilha->topo->proximo;
+    free(deletando);
+    pilha->qtde--;
+    return valor;
+}
+// void show_StackRegistro(StackRegistro* pilha){
+//     CelulaStackRegistro *topo = pilha->topo;
+//     while(topo!=NULL){
+//         printarCadastro(topo->valor);
+//         topo = topo->proximo;
+//     }
+//     printf("\n");
+// }
+
+
+CelulaStackRegistro* instanciar_celula_registro(CelulaStackRegistro* proximo,Registro* valor){
+    CelulaStackRegistro * cell = malloc(sizeof(CelulaStackInt));
+    cell->valor= valor;
+    cell->proximo = proximo;
+    return cell;
+}
+
+StackInt * iniciarStackInt(){
+    StackInt* pilha = malloc(sizeof(StackInt));
+    pilha->qtde=0;
+    pilha->topo= NULL;
+    return pilha;
+}
+CelulaStackInt* instanciar_celulaInt(CelulaStackInt* proximo,int valor){
+    CelulaStackInt * cell = malloc(sizeof(CelulaStackInt));
+    cell->valor= valor;
+    cell->proximo = proximo;
+    return cell;
+}
+void push_stackInt(StackInt * pilha, int valor){
+    pilha->topo = instanciar_celulaInt(pilha->topo,valor);
+    pilha->qtde++;
+}
+
+int pop_stackInt(StackInt * pilha){
+    if (pilha->qtde==0)return -1;
+    CelulaStackInt* deletando = pilha->topo;
+    int valor = deletando->valor;
+    pilha->topo=pilha->topo->proximo;
+    free(deletando);
+    pilha->qtde--;
+    return valor;
+}
+
+void show_stackInt(StackInt* pilha){
+    CelulaStackInt *topo = pilha->topo;
+    while(topo!=NULL){
+        printf("%d ",topo->valor);
+        topo = topo->proximo;
+    }
+    printf("\n");
+}
+
+
+
+

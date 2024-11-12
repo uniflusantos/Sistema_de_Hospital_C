@@ -79,19 +79,18 @@ typedef struct ArvoreBinaria{
 
 
 
-
 ArvoreBinaria* criarArvoreAPartirDeUmaLista(Lista* lista,int variavelAnalizada);
-StackInt* iniciarStack();
-void push_stack(StackInt * pilha, int valor);
-int pop_stack(StackInt * pilha);
-void show_stack(StackInt* pilha);
-CelulaStackInt* instanciar_celula(CelulaStackInt* proximo,int valor);
+StackInt* iniciarStackInt();
+void push_stackInt(StackInt * pilha, int valor);
+int pop_stackInt(StackInt * pilha);
+void show_stackInt(StackInt* pilha);
+CelulaStackInt* instanciar_celulaInt(CelulaStackInt* proximo,int valor);
 
 StackRegistro* iniciarStackRegistro();
-void push_StackRegistro(StackRegistro * pilha, int valor);
-int pop_StackRegistro(StackRegistro * pilha);
+void push_StackRegistro(StackRegistro * pilha, Registro* valor);
+Registro* pop_StackRegistro(StackRegistro * pilha);
 void show_StackRegistro(StackRegistro* pilha);
-CelulaStackRegistro* instanciar_celula_registro(CelulaStackRegistro* proximo,int valor);
+CelulaStackRegistro* instanciar_celula_registro(CelulaStackRegistro* proximo,Registro* valor);
 
 Data* iniciarData(int aleatorio);
 Registro *iniciarRegistro(int dia, int mes, int ano);
