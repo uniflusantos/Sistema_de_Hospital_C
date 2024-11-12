@@ -53,7 +53,7 @@ typedef struct{
 
 typedef struct CelulaStackRegistro{
     struct CelulaStackRegistro* proximo;
-    int valor;
+    Registro *valor;
 }CelulaStackRegistro;
 
 typedef struct{
@@ -111,8 +111,8 @@ Lista *lerDados();
 EFila *iniciarEFila();
 EFila *iniciarEFilaReg(Registro* registro);
 Fila *iniciarFila();
-void inserirFila(Fila *fila, Registro *reg);
-Registro removerFila(Fila *fila);
+void inserirFila(Fila *fila, Registro *reg, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao);
+Registro removerFila(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao);
 void mostrarFila(Fila *fila);
 void printarArvoreEmOrdemCrescente(VerticeArvore *raiz);
 void inserirArvoreIdade(ArvoreBinaria* arvore, Registro* valor);
@@ -127,6 +127,8 @@ void editarNomePeloRG(Lista *lista, char *rg, const char *novoNome);
 void editarDataDia(Lista *lista, char *rg, int novoDia);
 void editarDataMes(Lista *lista, char *rg, int novoMes);
 void editarDataAno(Lista *lista, char *rg, int novoAno);
+void desfazerOperacao(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao);
+void removerFilaTail(Fila *fila);
 
 
 #endif 
