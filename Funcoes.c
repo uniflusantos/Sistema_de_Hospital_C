@@ -181,7 +181,7 @@ void opcoesCadastro(Lista* lista) {
     }
 }
 
-void opcao2(Fila *fila, Lista *lista) {
+void opcao2(Fila *fila, Lista *lista, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao) {
     int opcao_2;
     printf("1 - Inserir paciente na fila de atendimento\n");
     printf("2 - Remover paciente da fila de atendimento\n");
@@ -196,12 +196,12 @@ void opcao2(Fila *fila, Lista *lista) {
         Registro *registro = procurarRegistroPeloRG(lista, rg);
         limpa_buffer();
         if (registro) {
-            inserirFila(fila, registro);
+            inserirFila(fila, registro, pilhaRegistro, pilhaOperacao);
         } else {
             printf("Paciente com RG %s não encontrado.\n", rg);
         }
     } else if (opcao_2 == 2) {
-        removerFila(fila);
+        removerFila(fila, pilhaRegistro, pilhaOperacao);
     } else if (opcao_2 == 3) {
         mostrarFila(fila);
      } else if (opcao_2 == 3) {
@@ -221,19 +221,19 @@ void opcao3(Lista *lista){
     limpa_buffer();
     if(opcao_3 == 1){
         printf("Registros ordenados por ano: \n");
-            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,3);
+        ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,3);
         arvore = criarArvoreAPartirDeUmaLista(lista, 3);
         printarArvoreEmOrdemCrescente(arvore->raiz);
     }
     if(opcao_3 == 2){
         printf("Registros ordenados por mes: \n");
-            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,2);
+        ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,2);
         arvore = criarArvoreAPartirDeUmaLista(lista, 2);
         printarArvoreEmOrdemCrescente(arvore->raiz);
     }
     if(opcao_3 == 3){
         printf("Registros ordenados por dia: \n");
-            ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,1);
+        ArvoreBinaria *arvore = criarArvoreAPartirDeUmaLista(lista,1);
         arvore = criarArvoreAPartirDeUmaLista(lista, 1);
         printarArvoreEmOrdemCrescente(arvore->raiz);
     }
@@ -247,9 +247,9 @@ void opcao3(Lista *lista){
 
 
 
-void opcao4(){
-    printf("Desfazendo a ultima operacao...\n");
-    
+void opcao4(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao){
+    printf("\nDesfazendo a ultima operacao...\n\n");
+    desfazerOperacao(fila, pilhaRegistro, pilhaOperacao);
 }
 
 
