@@ -271,9 +271,13 @@ Fila *iniciarFila() {
     return fila;
 }
 
-void inserirFila(Fila *fila, Registro *reg) {
-    EFila *novo = iniciarEFilaReg(malloc(sizeof(Registro)));
-    *novo->Dados = *reg; // Cópia profunda dos dados do registro
+void inserirFila(Fila *fila, Registro *reg, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao) {
+    EFila *novo = iniciarEFilaReg(malloc(sizeof(EFila)));
+    novo->Dados = reg;  // Não criamos uma nova cópia aqui, só usamos o ponteiro existente.
+
+    push_stackInt(pilhaOperacao, 0);  // Marcar como operação de inserção
+    push_StackRegistro(pilhaRegistro, reg);  // Armazenamos o ponteiro para o registro
+
     if (fila->quantidade == 0) {
         fila->head = novo;
     } else {
@@ -284,16 +288,25 @@ void inserirFila(Fila *fila, Registro *reg) {
 }
 
 
-Registro removerFila(Fila *fila) {
-    if (fila->quantidade == 0) return *iniciarRegistro(0, 0, 0);
-    Registro valorRemocao = *fila->head->Dados;
+
+Registro removerFila(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao) {
+    if (fila->quantidade == 0) {
+        return *iniciarRegistro(0, 0, 0);  // Retornar um registro vazio (sem dados)
+    }
+
+    push_stackInt(pilhaOperacao, 1);  // Marcar como operação de remoção
+    Registro *removido = fila->head->Dados;  // Usar o ponteiro do paciente sem criar cópias
+
+    push_StackRegistro(pilhaRegistro, removido);  // Guardar o ponteiro para o paciente removido
+
     EFila *remover = fila->head;
     fila->head = fila->head->proximo;
-    free(remover->Dados); // Liberar apenas o registro que foi alocado na fila
-    free(remover);
+    free(remover);  // Liberar apenas o nó (não o registro, pois estamos usando o ponteiro diretamente)
     fila->quantidade--;
-    return valorRemocao;
+
+    return *removido;  // Retornar uma cópia do registro removido
 }
+
 
 
 void mostrarFila(Fila *fila) {
@@ -572,6 +585,52 @@ void show_stackInt(StackInt* pilha){
         topo = topo->proximo;
     }
     printf("\n");
+}
+
+void desfazerOperacao(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao) {
+
+    int operacao = pop_stackInt(pilhaOperacao);
+    
+    Registro *registroUndo = pop_StackRegistro(pilhaRegistro);
+    
+    if (operacao == 0) {
+        printf("Desfazendo inserção de: %s\n", registroUndo->nome);
+        removerFilaTail(fila);  
+
+
+    } else if (operacao == 1) {
+        printf("Desfazendo remoção de: %s\n", registroUndo->nome);
+        
+        EFila *novo = iniciarEFilaReg(malloc(sizeof(EFila)));
+        novo->Dados = registroUndo;
+        novo->proximo = fila->head; 
+        fila->head = novo;         
+        if (fila->quantidade == 0) {
+            fila->tail = novo; 
+        }
+        fila->quantidade++;
+    }
+}
+
+void removerFilaTail(Fila *fila) {
+
+    EFila *remover = fila->tail;
+
+    if (fila->quantidade == 1) {
+        fila->head = NULL;
+        fila->tail = NULL;
+    } else {
+        EFila *penultimo = fila->head;
+        while (penultimo->proximo != fila->tail) {
+            penultimo = penultimo->proximo;
+        }
+        penultimo->proximo = NULL;
+        fila->tail = penultimo;
+    }
+
+    free(remover->Dados);
+    free(remover);
+    fila->quantidade--;
 }
 
 
