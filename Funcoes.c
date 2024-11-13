@@ -277,5 +277,6 @@ void opcao6(){
     printf("Giovanni Chahin Morassi (22.123.025-3)\n");
     printf("Ciclo: 4\n");
     printf("Curso: Ciencias da Computacao\n");
-    printf("Disciplina: Estrutura de Dados\n\n");
+    printf("Disciplina: Estrutura de Dados\n");
+    printf("Data: 07/11/2024\n\n");
 }
