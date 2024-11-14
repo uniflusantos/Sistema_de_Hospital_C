@@ -32,9 +32,14 @@ void opcoesCadastro(Lista* lista) {
         limpa_buffer();
         printf("Digite o RG do paciente: ");
         scanf("%s", reg->rg);
+        if (verificarRGDuplicado(lista, reg->rg) != NULL) {
+            printf("Erro: Já existe uma pessoa cadastrada com esse RG.\n");
+            return;
+        }
         inserirLista(lista, reg);
         limpa_buffer();
-    } else if (opcao_1 == 2) {
+    }
+        else if (opcao_1 == 2) {
         int opcao_consultar;
         printf("1 - Consultar por nome\n");
         printf("2 - Consultar por RG\n");
@@ -277,6 +282,6 @@ void opcao6(){
     printf("Giovanni Chahin Morassi (22.123.025-3)\n");
     printf("Ciclo: 4\n");
     printf("Curso: Ciencias da Computacao\n");
-    printf("Disciplina: Estrutura de Dados\n");
+    printf("Disciplina: Estrutura de Dados\n\n");
     printf("Data: 07/11/2024\n\n");
 }
