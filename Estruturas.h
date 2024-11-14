@@ -129,6 +129,7 @@ void editarDataMes(Lista *lista, char *rg, int novoMes);
 void editarDataAno(Lista *lista, char *rg, int novoAno);
 void desfazerOperacao(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao);
 void removerFilaTail(Fila *fila);
+Registro* verificarRGDuplicado(Lista* lista, const char* rg);
 
 
 #endif 
