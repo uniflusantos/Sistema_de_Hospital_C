@@ -633,6 +633,17 @@ void removerFilaTail(Fila *fila) {
     fila->quantidade--;
 }
 
+Registro* verificarRGDuplicado(Lista* lista, const char* rg) {
+    ELista* atual = lista->inicio;  
+    while (atual != NULL) {
+        if (strcmp(atual->Dados->rg, rg) == 0) {
+            return atual->Dados;
+        }
+        atual = atual->proximo; 
+    }
+    return NULL;
+}
+
 
 
 
