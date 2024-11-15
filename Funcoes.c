@@ -253,7 +253,6 @@ void opcao3(Lista *lista){
 
 
 void opcao4(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao){
-    printf("\nDesfazendo a ultima operacao...\n\n");
     desfazerOperacao(fila, pilhaRegistro, pilhaOperacao);
 }
 
