@@ -588,27 +588,46 @@ void show_stackInt(StackInt* pilha){
 }
 
 void desfazerOperacao(Fila *fila, StackRegistro *pilhaRegistro, StackInt *pilhaOperacao) {
-
+    int opcao_desfazer;
     int operacao = pop_stackInt(pilhaOperacao);
     
     Registro *registroUndo = pop_StackRegistro(pilhaRegistro);
     
     if (operacao == 0) {
-        printf("Desfazendo inserção de: %s\n", registroUndo->nome);
-        removerFilaTail(fila);  
-
+        
+        printf("Deseja desfazer a inserção de: %s?\n", registroUndo->nome);
+        printf("1 - Sim\n");
+        printf("2 - Nao\n");
+        scanf("%d", &opcao_desfazer);
+        limpa_buffer();
+        if(opcao_desfazer == 1){
+            printf("Desfazendo inserção de: %s\n", registroUndo->nome);
+            removerFilaTail(fila);  
+        }
+        else if (opcao_desfazer == 2){
+            return;
+        }
 
     } else if (operacao == 1) {
-        printf("Desfazendo remoção de: %s\n", registroUndo->nome);
-        
-        EFila *novo = iniciarEFilaReg(malloc(sizeof(EFila)));
-        novo->Dados = registroUndo;
-        novo->proximo = fila->head; 
-        fila->head = novo;         
-        if (fila->quantidade == 0) {
-            fila->tail = novo; 
+        printf("Deseja desfazer a remoção de: %s?\n", registroUndo->nome);
+        printf("1 - Sim\n");
+        printf("2 - Nao\n");
+        scanf("%d", &opcao_desfazer);
+        limpa_buffer();
+        if(opcao_desfazer == 1){
+            printf("Desfazendo remoção de: %s\n", registroUndo->nome);
+            EFila *novo = iniciarEFilaReg(malloc(sizeof(EFila)));
+            novo->Dados = registroUndo;
+            novo->proximo = fila->head; 
+            fila->head = novo;         
+            if (fila->quantidade == 0) {
+                fila->tail = novo; 
+            }
+            fila->quantidade++;
         }
-        fila->quantidade++;
+        if(opcao_desfazer == 2){
+            return;
+        }
     }
 }
 
@@ -627,9 +646,6 @@ void removerFilaTail(Fila *fila) {
         penultimo->proximo = NULL;
         fila->tail = penultimo;
     }
-
-    free(remover->Dados);
-    free(remover);
     fila->quantidade--;
 }
 
